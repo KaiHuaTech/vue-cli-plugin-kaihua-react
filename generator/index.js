@@ -1,10 +1,26 @@
 // preinstalled in @vue/cli-service
 const { loadModule } = require('@vue/cli-shared-utils')
-module.exports = async (api, options) => {
-  // 1. vue 项目 src、public 目录文件
-  const fs = loadModule('fs-extra', api.generator.context)
-  await fs.emptyDir(api.resolve('./src'))
-  await fs.emptyDir(api.resolve('./public'))
+const cleanVue = require('./clean-vue')
+const genEslint = require('./gen-eslint')
+const genBabel = require('./gen-babel')
+module.exports = async (...args) => {
+  const [api, options] = args
+  cleanVue(api, options)
 
-  api.render('./template')
+  api.extendPackage({
+    dependencies: {
+      "react": ">16",
+      "react-dom": ">16",
+    }
+  })
+
+  // 生成 react app file
+  api.render('./gen-react-app/template')
+
+  if (options.useEslint) {
+    api.genEslint(...args)
+  }
+
+  genBabel(...args)
+
 }

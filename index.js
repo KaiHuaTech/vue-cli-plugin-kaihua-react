@@ -1,3 +1,4 @@
+const setBabelLoader = require('./setBabelLoader')
 module.exports = (api, options) => {
   api.chainWebpack(webpackConfig => {
     
@@ -9,10 +10,7 @@ module.exports = (api, options) => {
    webpackConfig.module.rules.delete('vue')
    webpackConfig.plugins.delete('vue-loader')
    webpackConfig.plugins.delete('feature-flags')
-   
-   /* 
-   * babel 配置
-   */
-   
   })
+
+  setBabelLoader(api, options)
 }
