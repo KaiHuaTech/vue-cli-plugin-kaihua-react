@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "files": [
-    "generator",
+    "generator/**/*",
     "index.js",
     "prompts.js",
     "setBabelLoader.js"
