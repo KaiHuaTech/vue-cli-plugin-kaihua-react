@@ -5,7 +5,7 @@ const genEslint = require('./gen-eslint')
 const genBabel = require('./gen-babel')
 module.exports = async (...args) => {
   const [api, options] = args
-  cleanVue(api, options)
+  await cleanVue(api, options)
 
   api.extendPackage({
     dependencies: {
